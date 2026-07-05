@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Countdown from './components/Countdown'
 import FloatingParticles from './components/FloatingParticles'
 import SummaryCard from './components/SummaryCard'
@@ -42,11 +42,11 @@ export default function App() {
   const [wishes, setWishes] = useState([])
   const savedRef = useRef(false)
 
-  // useEffect(() => {
-  //   const saved = localStorage.getItem('strawberry-wishes')
-  //   if (saved) { try { setWishes(JSON.parse(saved)) } catch {} }
-  //   if (localStorage.getItem('strawberry-said-yes') === 'true') setScreen(SCREEN.YES)
-  // }, [])
+  useEffect(() => {
+    const saved = localStorage.getItem('strawberry-wishes');
+    console.log('Data saved', saved);
+    if (saved) { setWishes(JSON.parse(saved))}
+  }, [])
 
   const handleYes = () => {
     launchConfetti()
