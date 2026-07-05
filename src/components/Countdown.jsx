@@ -49,10 +49,11 @@ export default function Countdown() {
         {units.map(({ label, value }) => (
           <div
             key={label}
-            className="countdown-unit flex flex-col items-center min-w-[70px] rounded-2xl px-4 py-3 backdrop-blur-md"
+            className="countdown-unit flex flex-col items-center rounded-2xl px-4 py-3 backdrop-blur-md"
             style={{
               background: 'rgba(255,107,157,0.12)',
               border: '1.5px solid rgba(255,107,157,0.35)',
+              padding: '0.5rem 0.5rem',
             }}
           >
             <span

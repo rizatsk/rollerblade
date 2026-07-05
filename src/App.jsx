@@ -6,7 +6,6 @@ import WishlistForm from './components/WishlistForm'
 import YesNoButtons from './components/YesNoButtons'
 
 let confetti = null
-import('canvas-confetti').then(m => { confetti = m.default }).catch(() => {})
 
 function launchConfetti() {
   if (!confetti) return
@@ -39,9 +38,9 @@ const Card = ({ children, id, ariaLabelledBy, extraClass = '' }) => (
 )
 
 export default function App() {
-  const [screen, setScreen]   = useState(SCREEN.QUESTION)
-  const [wishes, setWishes]   = useState([])
-  const savedRef              = useRef(false)
+  const [screen, setScreen] = useState(SCREEN.QUESTION)
+  const [wishes, setWishes] = useState([])
+  const savedRef = useRef(false)
 
   // useEffect(() => {
   //   const saved = localStorage.getItem('strawberry-wishes')
@@ -93,18 +92,29 @@ export default function App() {
           <>
             <Countdown />
             <Card ariaLabelledBy="question-title">
-              {/* Emoji */}
-              <span
-                className="emoji-bounce block mb-3"
-                role="img"
-                aria-label="strawberry"
-                style={{
-                  fontSize: 'clamp(3rem,10vw,5rem)',
-                  filter: 'drop-shadow(0 0 20px rgba(255,107,157,0.5))',
-                }}
-              >
-                🍓
-              </span>
+              {/* Nailong SVG Doll */}
+
+              <div className="flex justify-center mb-4">
+                <span
+                  className="emoji-bounce block mb-3"
+                  role="img"
+                  aria-label="strawberry"
+                  style={{
+                    fontSize: 'clamp(3rem,10vw,5rem)',
+                    filter: 'drop-shadow(0 0 20px rgba(255,107,157,0.5))',
+                  }}
+                >
+                  🍓
+                </span>
+                <img
+                  src="/nailong.svg"
+                  alt="Boneka Nailong Lucu"
+                  className="emoji-bounce w-32 h-32 object-contain"
+                  style={{
+                    filter: 'drop-shadow(0 0 25px rgba(255, 235, 59, 0.6))'
+                  }}
+                />
+              </div>
 
               {/* Title */}
               <h1
@@ -165,7 +175,7 @@ export default function App() {
               role="img"
               aria-label="celebration"
               style={{
-                fontSize: 'clamp(4rem,15vw,7rem)',
+                fontSize: 'clamp(4rem,15vw,4rem)',
                 filter: 'drop-shadow(0 0 30px rgba(255,107,157,0.8))',
               }}
             >
@@ -219,7 +229,7 @@ export default function App() {
               role="img"
               aria-label="love"
               style={{
-                fontSize: 'clamp(4rem,15vw,7rem)',
+                fontSize: 'clamp(2rem,10vw,4rem)',
                 filter: 'drop-shadow(0 0 30px rgba(255,107,157,0.8))',
               }}
             >
@@ -238,16 +248,19 @@ export default function App() {
             >
               Rencana kita sudah tersimpan!
             </h1>
-            <p className="text-[1rem] font-semibold mb-2 leading-relaxed" style={{ color: 'rgba(255,255,255,0.8)' }}>
+            <p className="text-[1rem] font-semibold mb-2 leading-relaxed" style={{ color: 'rgba(255,255,255,0.8)', padding: '1rem 0' }}>
               Tinggal nunggu tanggal 7 Agustus aja… nggak sabar banget! 🥺💕
             </p>
 
             <SummaryCard wishes={wishes} />
 
-            <div className="flex flex-col items-center gap-3 mt-6">
+            <div className="flex flex-col items-center gap-3 mt-6" style={{ marginTop: '1rem'}}>
               <button
                 id="btn-edit-wishes"
-                className="btn-yes-glow text-white border-none rounded-full px-8 py-4 font-extrabold text-[1rem] tracking-wide cursor-pointer"
+                className="btn-yes-glow text-white border-none rounded-full font-extrabold text-[1rem] tracking-wide cursor-pointer"
+                style={{
+                  padding: '0.3rem 1rem',
+                }}
                 onClick={handleEditWishes}
               >
                 ✏️ Edit Wishlist
