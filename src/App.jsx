@@ -37,15 +37,28 @@ const Card = ({ children, id, ariaLabelledBy, extraClass = '' }) => (
   </section>
 )
 
+const SPREADSHEET_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyni0MIe_AU0j-OHVwoPDunrGC-7V1NZGhRm20rwGcGtOhtZedvcf7WNzI2xsQx4atP1Q/exec';
+
 export default function App() {
   const [screen, setScreen] = useState(SCREEN.QUESTION)
   const [wishes, setWishes] = useState([])
+  const [isSaving, setIsSaving] = useState(false)
   const savedRef = useRef(false)
 
   useEffect(() => {
-    const saved = localStorage.getItem('strawberry-wishes');
-    console.log('Data saved', saved);
-    if (saved) { setWishes(JSON.parse(saved))}
+    if (SPREADSHEET_SCRIPT_URL) {
+      fetch(SPREADSHEET_SCRIPT_URL)
+        .then(res => res.json())
+        .then(data => {
+          if (data.wishes) setWishes(data.wishes)
+        })
+        .catch(err => console.error("Error loading wishes from sheet:", err))
+    } else {
+      const saved = localStorage.getItem('strawberry-wishes')
+      if (saved) {
+        try { setWishes(JSON.parse(saved)) } catch {}
+      }
+    }
   }, [])
 
   const handleYes = () => {
@@ -54,26 +67,55 @@ export default function App() {
     localStorage.setItem('strawberry-said-yes', 'true')
   }
 
-  const handleAddWish = (wish) =>
-    setWishes(prev => {
-      const updated = [...prev, wish]
-      localStorage.setItem('strawberry-wishes', JSON.stringify(updated))
-      return updated
-    })
+  const handleAddWish = (wish) => {
+    const updated = [...wishes, wish]
+    setWishes(updated)
+    localStorage.setItem('strawberry-wishes', JSON.stringify(updated))
+  }
 
-  const handleDeleteWish = (index) =>
-    setWishes(prev => {
-      const updated = prev.filter((_, i) => i !== index)
-      localStorage.setItem('strawberry-wishes', JSON.stringify(updated))
-      return updated
-    })
+  const handleDeleteWish = (index) => {
+    const updated = wishes.filter((_, i) => i !== index)
+    setWishes(updated)
+    localStorage.setItem('strawberry-wishes', JSON.stringify(updated))
+  }
 
   const handleSave = () => {
-    if (savedRef.current) return
+    if (savedRef.current || isSaving) return
     launchConfetti()
+    setIsSaving(true)
+
+    // Menyimpan backup di local storage
     localStorage.setItem('strawberry-wishes', JSON.stringify(wishes))
-    setScreen(SCREEN.SAVED)
-    savedRef.current = true
+
+    if (SPREADSHEET_SCRIPT_URL) {
+      // Mengirim wishlist ke Google Sheets secara real-time
+      fetch(SPREADSHEET_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Mencegah pemblokiran CORS pada redirect Apps Script
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ wishes: wishes })
+      })
+      .then(() => {
+        setScreen(SCREEN.SAVED)
+        savedRef.current = true
+      })
+      .catch(err => {
+        console.error("Gagal simpan ke Google Sheet:", err)
+        alert("Gagal terhubung ke Google Sheets, tapi data kamu tetap tersimpan lokal di browser! ❤️")
+        setScreen(SCREEN.SAVED)
+        savedRef.current = true
+      })
+      .finally(() => {
+        setIsSaving(false)
+      })
+    } else {
+      // Jika URL belum disiapkan, langsung sukses (secara lokal)
+      setTimeout(() => {
+        setScreen(SCREEN.SAVED)
+        savedRef.current = true
+        setIsSaving(false)
+      }, 800)
+    }
   }
 
   const handleEditWishes = () => {
