@@ -56,7 +56,7 @@ export default function App() {
     } else {
       const saved = localStorage.getItem('strawberry-wishes')
       if (saved) {
-        try { setWishes(JSON.parse(saved)) } catch {}
+        try { setWishes(JSON.parse(saved)) } catch { }
       }
     }
   }, [])
@@ -95,26 +95,23 @@ export default function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ wishes: wishes })
       })
-      .then(() => {
-        setScreen(SCREEN.SAVED)
-        savedRef.current = true
-      })
-      .catch(err => {
-        console.error("Gagal simpan ke Google Sheet:", err)
-        alert("Gagal terhubung ke Google Sheets, tapi data kamu tetap tersimpan lokal di browser! ❤️")
-        setScreen(SCREEN.SAVED)
-        savedRef.current = true
-      })
-      .finally(() => {
-        setIsSaving(false)
-      })
+        .then(() => {
+          setScreen(SCREEN.SAVED)
+          savedRef.current = true
+        })
+        .catch(err => {
+          console.error("Gagal simpan ke Google Sheet:", err)
+          alert("Gagal terhubung ke Google Sheets, tapi data kamu tetap tersimpan lokal di browser! ❤️")
+          setScreen(SCREEN.SAVED)
+          savedRef.current = true
+        })
+        .finally(() => {
+          setIsSaving(false)
+        })
     } else {
-      // Jika URL belum disiapkan, langsung sukses (secara lokal)
-      setTimeout(() => {
-        setScreen(SCREEN.SAVED)
-        savedRef.current = true
-        setIsSaving(false)
-      }, 800)
+      setScreen(SCREEN.SAVED)
+      savedRef.current = true
+      setIsSaving(false)
     }
   }
 
@@ -296,7 +293,7 @@ export default function App() {
 
             <SummaryCard wishes={wishes} />
 
-            <div className="flex flex-col items-center gap-3 mt-6" style={{ marginTop: '1rem'}}>
+            <div className="flex flex-col items-center gap-3 mt-6" style={{ marginTop: '1rem' }}>
               <button
                 id="btn-edit-wishes"
                 className="btn-yes-glow text-white border-none rounded-full font-extrabold text-[1rem] tracking-wide cursor-pointer"
