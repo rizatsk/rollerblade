@@ -1,0 +1,261 @@
+import { useRef, useState } from 'react'
+import Countdown from './components/Countdown'
+import FloatingParticles from './components/FloatingParticles'
+import SummaryCard from './components/SummaryCard'
+import WishlistForm from './components/WishlistForm'
+import YesNoButtons from './components/YesNoButtons'
+
+let confetti = null
+import('canvas-confetti').then(m => { confetti = m.default }).catch(() => {})
+
+function launchConfetti() {
+  if (!confetti) return
+  const colors = ['#ff6b9d', '#ffd700', '#6bcb77', '#ff4757', '#ffffff', '#ffb3c6']
+  confetti({ particleCount: 120, spread: 90, origin: { y: 0.5 }, colors, shapes: ['circle', 'square'] })
+  setTimeout(() => {
+    confetti({ particleCount: 60, spread: 60, origin: { x: 0.1, y: 0.5 }, colors })
+    confetti({ particleCount: 60, spread: 60, origin: { x: 0.9, y: 0.5 }, colors })
+  }, 350)
+}
+
+const SCREEN = { QUESTION: 'question', YES: 'yes', SAVED: 'saved' }
+
+/* ─── shared glassmorphism card wrapper ─── */
+const Card = ({ children, id, ariaLabelledBy, extraClass = '' }) => (
+  <section
+    id={id}
+    aria-labelledby={ariaLabelledBy}
+    className={`hero-card backdrop-blur-xl rounded-[28px] w-full text-center ${extraClass}`}
+    style={{
+      background: 'rgba(255,255,255,0.05)',
+      border: '1.5px solid rgba(255,107,157,0.3)',
+      boxShadow: '0 8px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255,107,157,0.5), 0 0 60px rgba(255,107,157,0.2)',
+      padding: 'clamp(2rem,6vw,3.5rem)',
+      maxWidth: '620px',
+    }}
+  >
+    {children}
+  </section>
+)
+
+export default function App() {
+  const [screen, setScreen]   = useState(SCREEN.QUESTION)
+  const [wishes, setWishes]   = useState([])
+  const savedRef              = useRef(false)
+
+  // useEffect(() => {
+  //   const saved = localStorage.getItem('strawberry-wishes')
+  //   if (saved) { try { setWishes(JSON.parse(saved)) } catch {} }
+  //   if (localStorage.getItem('strawberry-said-yes') === 'true') setScreen(SCREEN.YES)
+  // }, [])
+
+  const handleYes = () => {
+    launchConfetti()
+    setScreen(SCREEN.YES)
+    localStorage.setItem('strawberry-said-yes', 'true')
+  }
+
+  const handleAddWish = (wish) =>
+    setWishes(prev => {
+      const updated = [...prev, wish]
+      localStorage.setItem('strawberry-wishes', JSON.stringify(updated))
+      return updated
+    })
+
+  const handleDeleteWish = (index) =>
+    setWishes(prev => {
+      const updated = prev.filter((_, i) => i !== index)
+      localStorage.setItem('strawberry-wishes', JSON.stringify(updated))
+      return updated
+    })
+
+  const handleSave = () => {
+    if (savedRef.current) return
+    launchConfetti()
+    localStorage.setItem('strawberry-wishes', JSON.stringify(wishes))
+    setScreen(SCREEN.SAVED)
+    savedRef.current = true
+  }
+
+  const handleEditWishes = () => {
+    savedRef.current = false
+    setScreen(SCREEN.YES)
+  }
+
+  return (
+    <>
+      <FloatingParticles />
+
+      <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-8">
+
+        {/* ══ QUESTION SCREEN ══ */}
+        {screen === SCREEN.QUESTION && (
+          <>
+            <Countdown />
+            <Card ariaLabelledBy="question-title">
+              {/* Emoji */}
+              <span
+                className="emoji-bounce block mb-3"
+                role="img"
+                aria-label="strawberry"
+                style={{
+                  fontSize: 'clamp(3rem,10vw,5rem)',
+                  filter: 'drop-shadow(0 0 20px rgba(255,107,157,0.5))',
+                }}
+              >
+                🍓
+              </span>
+
+              {/* Title */}
+              <h1
+                id="question-title"
+                className="mb-4 leading-snug"
+                style={{
+                  fontFamily: 'var(--font-script)',
+                  fontSize: 'clamp(1.6rem,5vw,2.4rem)',
+                  color: '#ffb3c6',
+                  textShadow: '0 0 20px rgba(255,107,157,0.4)',
+                }}
+              >
+                Hei, Pebrian Dwi Eka Sari <br /> ada sesuatu yang<br />pengen aku tanyain…
+              </h1>
+
+              {/* Date badge */}
+              <div
+                className="badge-pulse inline-flex items-center gap-2 rounded-full px-5 py-2 text-[0.9rem] font-extrabold tracking-wide mb-6"
+                style={{
+                  background: 'linear-gradient(135deg,rgba(255,107,157,0.25),rgba(255,71,87,0.2))',
+                  border: '1.5px solid rgba(255,107,157,0.5)',
+                  color: '#ffd700',
+                  padding: '0.4rem 1.8rem',
+                  margin: '1rem 0'
+                }}
+              >
+                <span>📅</span>
+                <span>Jumat, 7 Agustus 2026</span>
+              </div>
+
+              {/* Description */}
+              <p
+                className="leading-relaxed mb-8 font-semibold"
+                style={{
+                  fontSize: 'clamp(0.95rem,2.5vw,1.1rem)',
+                  color: 'rgba(255,255,255,0.85)',
+                }}
+              >
+                Mau nggak aku ajak jalan-jalan ke{' '}
+                <strong style={{ color: '#ffb3c6', fontWeight: 800 }}>
+                  Puncak Petik Strawberry
+                </strong>
+                ? 🍓🌄<br />
+                Bayangin deh — udara segar pegunungan, pemandangan cantik,
+                dan kita petik strawberry segar langsung dari pohonnya bareng-bareng! makan, minum, ngobrol, nonton naik motor jalan-jalan bareng 💕
+              </p>
+
+              <YesNoButtons onYes={handleYes} />
+            </Card>
+          </>
+        )}
+
+        {/* ══ YES SCREEN ══ */}
+        {screen === SCREEN.YES && (
+          <Card ariaLabelledBy="yes-title" extraClass="yes-screen">
+            <span
+              className="celebration-bounce block mb-4"
+              role="img"
+              aria-label="celebration"
+              style={{
+                fontSize: 'clamp(4rem,15vw,7rem)',
+                filter: 'drop-shadow(0 0 30px rgba(255,107,157,0.8))',
+              }}
+            >
+              🎉🍓💕
+            </span>
+
+            <h1
+              id="yes-title"
+              className="mb-3"
+              style={{
+                fontFamily: 'var(--font-script)',
+                fontSize: 'clamp(2rem,6vw,3.2rem)',
+                color: '#ffb3c6',
+                textShadow: '0 0 30px rgba(255,107,157,0.6)',
+              }}
+            >
+              Yeaaaay! Makasih cantik! 🥰
+            </h1>
+            <p className="text-[1rem] font-semibold mb-6 leading-relaxed" style={{ color: 'rgba(255,255,255,0.8)', padding: '1rem 0' }}>
+              Aku seneng banget kamu mau! 💖<br />
+              Sekarang tulis semua yang pengen kamu lakuin selama kita jalan-jalan ya!
+            </p>
+
+            <WishlistForm wishes={wishes} onAdd={handleAddWish} onDelete={handleDeleteWish} />
+
+            {/* Save section */}
+            <div className="save-delayed flex flex-col items-center gap-3 mt-6">
+              <button
+                id="btn-save-wishes"
+                className="btn-save-green text-white border-none rounded-full font-extrabold text-[1rem] tracking-wide cursor-pointer"
+                style={{
+                  marginTop: '1rem',
+                  padding: '0.3rem 1rem',
+                }}
+                onClick={handleSave}
+              >
+                💾 Simpan &amp; Lihat Rencana Kita!
+              </button>
+              <p className="text-[0.78rem] text-center" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                Keinginan kamu tersimpan otomatis di perangkat ini 🔒
+              </p>
+            </div>
+          </Card>
+        )}
+
+        {/* ══ SAVED SCREEN ══ */}
+        {screen === SCREEN.SAVED && (
+          <Card ariaLabelledBy="saved-title" extraClass="yes-screen">
+            <span
+              className="celebration-bounce block mb-4"
+              role="img"
+              aria-label="love"
+              style={{
+                fontSize: 'clamp(4rem,15vw,7rem)',
+                filter: 'drop-shadow(0 0 30px rgba(255,107,157,0.8))',
+              }}
+            >
+              💖🌸🍓
+            </span>
+
+            <h1
+              id="saved-title"
+              className="mb-3"
+              style={{
+                fontFamily: 'var(--font-script)',
+                fontSize: 'clamp(2rem,6vw,3.2rem)',
+                color: '#ffb3c6',
+                textShadow: '0 0 30px rgba(255,107,157,0.6)',
+              }}
+            >
+              Rencana kita sudah tersimpan!
+            </h1>
+            <p className="text-[1rem] font-semibold mb-2 leading-relaxed" style={{ color: 'rgba(255,255,255,0.8)' }}>
+              Tinggal nunggu tanggal 7 Agustus aja… nggak sabar banget! 🥺💕
+            </p>
+
+            <SummaryCard wishes={wishes} />
+
+            <div className="flex flex-col items-center gap-3 mt-6">
+              <button
+                id="btn-edit-wishes"
+                className="btn-yes-glow text-white border-none rounded-full px-8 py-4 font-extrabold text-[1rem] tracking-wide cursor-pointer"
+                onClick={handleEditWishes}
+              >
+                ✏️ Edit Wishlist
+              </button>
+            </div>
+          </Card>
+        )}
+      </main>
+    </>
+  )
+}
