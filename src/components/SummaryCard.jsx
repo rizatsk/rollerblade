@@ -24,17 +24,44 @@ export default function SummaryCard({ wishes }) {
           icon: '📅',
           content: (
             <>
-              <strong style={{ color: '#ffb3c6' }}>Jumat, 7 Agustus 2026</strong>
+              <strong style={{ color: '#ffb3c6' }}>Jumat, 17 Juli 2026</strong>
               {' '}- Hari yang udah kita tunggu-tunggu!
             </>
           ),
         },
         {
-          icon: '📍',
+          icon: '🍓',
           content: (
             <>
-              <strong style={{ color: '#ffb3c6', }}>Puncak Petik Strawberry</strong>
-              {' '}- Udara segar, pemandangan indah, dan strawberry segar langsung dari pohonnya! 🍓
+              <strong style={{ color: '#ffb3c6', }}>Petik Strawberry</strong>
+              {' '}- <a href="https://maps.app.goo.gl/u4bx83FgS1Bu8w5W6" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">Udara segar, pemandangan indah, dan strawberry segar langsung dari pohonnya!</a>
+            </>
+          ),
+        },
+        {
+          icon: '☕',
+          content: (
+            <>
+              <strong style={{ color: '#ffb3c6', }}>Ngopi</strong>
+              {' '}- <a href="https://maps.app.goo.gl/1SxQBsqpLjHZ5bKi6" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">Mahiran Coffe & Resto, tempat yang cozy buat kita ngobrol sambil liat view Puncak.</a>
+            </>
+          ),
+        },
+        {
+          icon: '🍢',
+          content: (
+            <>
+              <strong style={{ color: '#ffb3c6', }}>Makan Sate Maranggi</strong>
+              {' '}- <a href="https://maps.app.goo.gl/PyK3x1PTFgRj9x2s8" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">Sate Maranggi Jembatan, tempat yang enak dan penuh nuansa lokal.</a>
+            </>
+          ),
+        },
+        {
+          icon: '📽️',
+          content: (
+            <>
+              <strong style={{ color: '#ffb3c6', }}>Nonton</strong>
+              {' '}- <a href="https://maps.app.goo.gl/dYbde5qFxpknBrhj6" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">The Park Sawangan, tempat yang seru buat nonton film bareng.</a>
             </>
           ),
         },

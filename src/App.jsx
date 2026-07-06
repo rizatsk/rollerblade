@@ -208,7 +208,7 @@ export default function App() {
                 <div className="flex gap-3 items-center justify-center">
                   <span className="text-[1.1rem] mt-0.5">🍢</span>
                   <p className="text-[0.9rem] leading-relaxed font-semibold" style={{ color: 'rgba(255,255,255,0.85)' }}>
-                    <strong style={{ color: '#ffb3c6', }}>Makan</strong>
+                    <strong style={{ color: '#ffb3c6', }}>Makan Sate Maranggi</strong>
                     {' '}- <a href="https://maps.app.goo.gl/PyK3x1PTFgRj9x2s8" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Sate Maranggi Jembatan</a>
                   </p>
                 </div>
@@ -286,7 +286,7 @@ export default function App() {
                 }}
                 onClick={handleSave}
               >
-                💾 Simpan &amp; Lihat Rencana Kita!
+                {isSaving ? 'Prosess di simpan...' : '💾 Simpan &amp; Lihat Rencana Kita!'}
               </button>
               <p className="text-[0.78rem] text-center" style={{ color: 'rgba(255,255,255,0.4)' }}>
                 Keinginan kamu tersimpan otomatis di perangkat ini 🔒
@@ -323,7 +323,7 @@ export default function App() {
               Rencana kita sudah tersimpan!
             </h1>
             <p className="text-[1rem] font-semibold mb-2 leading-relaxed" style={{ color: 'rgba(255,255,255,0.8)', padding: '1rem 0' }}>
-              Tinggal nunggu tanggal 7 Agustus aja… nggak sabar banget! 🥺💕
+              Tinggal nunggu tanggal 17 Juli aja… nggak sabar banget! 🥺💕
             </p>
 
             <SummaryCard wishes={wishes} />
