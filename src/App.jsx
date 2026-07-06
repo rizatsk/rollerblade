@@ -30,7 +30,7 @@ const Card = ({ children, id, ariaLabelledBy, extraClass = '' }) => (
       border: '1.5px solid rgba(255,107,157,0.3)',
       boxShadow: '0 8px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255,107,157,0.5), 0 0 60px rgba(255,107,157,0.2)',
       padding: 'clamp(2rem,6vw,3.5rem)',
-      maxWidth: '620px',
+      maxWidth: '620px'
     }}
   >
     {children}
@@ -124,7 +124,12 @@ export default function App() {
     <>
       <FloatingParticles />
 
-      <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-8">
+      <main 
+        className="relative z-10 min-h-screen flex flex-col items-center justify-center"
+        style={{
+          padding: "1.4rem 1rem"
+        }}
+        >
 
         {/* ══ QUESTION SCREEN ══ */}
         {screen === SCREEN.QUESTION && (
@@ -166,7 +171,7 @@ export default function App() {
                   textShadow: '0 0 20px rgba(255,107,157,0.4)',
                 }}
               >
-                Hei, Pebrian Dwi Eka Sari <br /> ada sesuatu yang<br />pengen aku tanyain…
+                Hei, Pebriani Dwi Eka Sari <br /> ada sesuatu yang<br />pengen aku tanyain…
               </h1>
 
               {/* Date badge */}
