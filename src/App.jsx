@@ -286,7 +286,7 @@ export default function App() {
                 }}
                 onClick={handleSave}
               >
-                {isSaving ? 'Prosess di simpan...' : '💾 Simpan &amp; Lihat Rencana Kita!'}
+                {isSaving ? 'Prosess Di Simpan...' : '💾 Simpan &amp; Lihat Rencana Kita!'}
               </button>
               <p className="text-[0.78rem] text-center" style={{ color: 'rgba(255,255,255,0.4)' }}>
                 Keinginan kamu tersimpan otomatis di perangkat ini 🔒
