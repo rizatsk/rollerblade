@@ -186,10 +186,40 @@ export default function App() {
                 }}
               >
                 <span>📅</span>
-                <span>Jumat, 7 Agustus 2026</span>
+                <span>Jumat, 17 July 2026</span>
               </div>
 
               {/* Description */}
+              <div style={{ margin: "1.3rem 0" }}>
+                <div className="flex gap-3 items-center justify-center">
+                  <span className="text-[1.1rem] mt-0.5">🍓</span>
+                  <p className="text-[0.9rem] leading-relaxed font-semibold" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                    <strong style={{ color: '#ffb3c6', }}>Puncak Petik Strawberry</strong>
+                    {' '}- <a href="https://maps.app.goo.gl/u4bx83FgS1Bu8w5W6" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Puncak Pass Farm</a>
+                  </p>
+                </div>
+                <div className="flex gap-3 items-center justify-center">
+                  <span className="text-[1.1rem] mt-0.5">☕</span>
+                  <p className="text-[0.9rem] leading-relaxed font-semibold" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                    <strong style={{ color: '#ffb3c6', }}>Ngopi</strong>
+                    {' '}- <a href="https://maps.app.goo.gl/1SxQBsqpLjHZ5bKi6" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Mahiran Coffe & Resto</a>
+                  </p>
+                </div>
+                <div className="flex gap-3 items-center justify-center">
+                  <span className="text-[1.1rem] mt-0.5">🍢</span>
+                  <p className="text-[0.9rem] leading-relaxed font-semibold" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                    <strong style={{ color: '#ffb3c6', }}>Makan</strong>
+                    {' '}- <a href="https://maps.app.goo.gl/PyK3x1PTFgRj9x2s8" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Sate Maranggi Jembatan</a>
+                  </p>
+                </div>
+                <div className="flex gap-3 items-center justify-center">
+                  <span className="text-[1.1rem] mt-0.5">📽️</span>
+                  <p className="text-[0.9rem] leading-relaxed font-semibold" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                    <strong style={{ color: '#ffb3c6', }}>Nonton</strong>
+                    {' '}- <a href="https://maps.app.goo.gl/dYbde5qFxpknBrhj6" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">The Park Sawangan</a>
+                  </p>
+                </div>
+              </div>
               <p
                 className="leading-relaxed mb-8 font-semibold"
                 style={{

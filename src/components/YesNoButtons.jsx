@@ -121,7 +121,7 @@ export default function YesNoButtons({ onYes }) {
       </div>
 
       {/* Hint */}
-      <p className="mt-5 text-[0.82rem] italic text-center" style={{ color: 'white' }}>
+      <p className="text-[0.82rem] italic text-center" style={{ color: 'white', marginTop: '0.7rem' }}>
         {noCount === 0
           ? 'Klik tombol di atas ya! 💕'
           : noCount < 3

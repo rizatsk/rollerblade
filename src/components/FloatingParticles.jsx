@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-const EMOJIS = ['🍓', '🌸', '💕', '🍃', '✨', '💖', '🌺', '🍓', '💫', '🌷']
+const EMOJIS = ['🍓', '🌸', '💕', '🍃', '✨', '💖', '🌺', '🍓', '💫', '🌷', '🛵', '🐧']
 
 export default function FloatingParticles() {
   const containerRef = useRef(null)
