@@ -74,10 +74,10 @@ export default function YesNoButtons({ onYes }) {
           : undefined,
         opacity: noCount >= SHRINK_AT + 4 ? Math.max(0.2, 1 - (noCount - SHRINK_AT - 4) * 0.1) : 1,
       }
-    : {}
+    : {};
 
   return (
-    <div className="w-full">
+    <div className="w-full" style={{ marginTop: '1rem' }}>
       {/* Buttons container */}
       <div
         ref={containerRef}

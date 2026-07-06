@@ -29,7 +29,7 @@ const Card = ({ children, id, ariaLabelledBy, extraClass = '' }) => (
       background: 'rgba(255,255,255,0.05)',
       border: '1.5px solid rgba(255,107,157,0.3)',
       boxShadow: '0 8px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255,107,157,0.5), 0 0 60px rgba(255,107,157,0.2)',
-      padding: 'clamp(2rem,6vw,3.5rem)',
+      padding: '2rem 1rem',
       maxWidth: '620px'
     }}
   >
@@ -194,7 +194,7 @@ export default function App() {
                 <div className="flex gap-3 items-center justify-center">
                   <span className="text-[1.1rem] mt-0.5">🍓</span>
                   <p className="text-[0.9rem] leading-relaxed font-semibold" style={{ color: 'rgba(255,255,255,0.85)' }}>
-                    <strong style={{ color: '#ffb3c6', }}>Puncak Petik Strawberry</strong>
+                    <strong style={{ color: '#ffb3c6', }}>Petik Strawberry</strong>
                     {' '}- <a href="https://maps.app.goo.gl/u4bx83FgS1Bu8w5W6" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Puncak Pass Farm</a>
                   </p>
                 </div>
