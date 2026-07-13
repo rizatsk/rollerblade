@@ -171,7 +171,7 @@ export default function App() {
                   textShadow: '0 0 20px rgba(255,107,157,0.4)',
                 }}
               >
-                Hei, Pebriani Dwi Eka Sari <br /> ada sesuatu yang<br />pengen aku tanyain…
+                Hei, Sayang <br /> ada sesuatu yang<br />pengen aku tanyain…
               </h1>
 
               {/* Date badge */}
